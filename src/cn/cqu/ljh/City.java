@@ -24,15 +24,35 @@ public class City {
     private float infectionRate; //感染率
 
     private Human humans[];
+    private int cell; //生成图片每个单元格的像素大小
+    private BufferedImage cityMapImg;
+
 
     public City(int humanNums, int infectedNums, float infectionRate) {
         this.humanNums = humanNums;
         this.infectedNums = infectedNums;
         this.infectionRate = infectionRate;
+        this.cell = 15; //默认为15
+
+    }
+
+    public City(int humanNums, int infectedNums, float infectionRate, int cell) {
+        this.humanNums = humanNums;
+        this.infectedNums = infectedNums;
+        this.infectionRate = infectionRate;
+        this.cell = cell;
+
     }
 
     public void initCity()
     {
+
+        //加载地图图片
+        try {
+            cityMapImg = ImageIO.read(new File("./cityMap.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         try {
             //读取Map生成最初的地图
@@ -56,14 +76,14 @@ public class City {
             for(int i=0;i<humanNums;i++)
             {
 
-                int x = random.nextInt(50);
-                int y = random.nextInt(50);
+                int x = random.nextInt(height);
+                int y = random.nextInt(width);
 
                 //人不能刷到墙里了
                 while(map[x][y] == '1')
                 {
-                    x = random.nextInt(50);
-                    y = random.nextInt(50);
+                    x = random.nextInt(height);
+                    y = random.nextInt(width);
                 }
 
                 if(i<infectedNums)
@@ -104,7 +124,7 @@ public class City {
 
             humans[i].move();
 
-            if(humans[i].x >=50 || humans[i].x <0 || humans[i].y >=50 || humans[i].y <0 || map[humans[i].x][humans[i].y] == '1') //如果撞墙了 就不动
+            if(humans[i].x >=height || humans[i].x <0 || humans[i].y >=width || humans[i].y <0 || map[humans[i].x][humans[i].y] == '1') //如果撞墙了 就不动
             {
                 humans[i].x = prevx;
                 humans[i].y = prevy;
@@ -146,7 +166,7 @@ public class City {
                 infectant++;
             }
         }
-        System.out.println("当前感染人数为"+ infectant);
+        //System.out.println("当前感染人数为"+ infectant);
     }
 
 
@@ -164,12 +184,17 @@ public class City {
 
     public BufferedImage generateMapImg()
     {
-        int cell = 15;
         BufferedImage image;
+        System.out.println(width);
+        System.out.println(cell*width);
         image = new BufferedImage(cell*width,cell*height,BufferedImage.TYPE_INT_BGR);
+        //image = new BufferedImage(1600,800,BufferedImage.TYPE_INT_BGR);
         Graphics g = image.getGraphics();
+
         g.setColor(Color.WHITE);
         g.fillRect(0,0,image.getWidth(),image.getHeight());
+
+        g.drawImage(cityMapImg,0,0,null); // ?
 
         for(int i=0;i<height;i++)
         {

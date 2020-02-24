@@ -1,2 +1,0 @@
-# VirusSimulation
- using java
