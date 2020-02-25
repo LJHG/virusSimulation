@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 public class simulationCanvas extends JPanel implements Runnable {
     private City city;
     public simulationCanvas(){
-        city = new City(200,20,0.2f,20);
+        city = new City(300,20,0.2f,10);
         city.initCity();
     }
     @Override

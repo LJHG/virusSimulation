@@ -166,7 +166,7 @@ public class City {
                 infectant++;
             }
         }
-        //System.out.println("当前感染人数为"+ infectant);
+        System.out.println("当前感染人数为"+ infectant);
     }
 
 
@@ -185,8 +185,8 @@ public class City {
     public BufferedImage generateMapImg()
     {
         BufferedImage image;
-        System.out.println(width);
-        System.out.println(cell*width);
+//        System.out.println(width);
+//        System.out.println(cell*width);
         image = new BufferedImage(cell*width,cell*height,BufferedImage.TYPE_INT_BGR);
         //image = new BufferedImage(1600,800,BufferedImage.TYPE_INT_BGR);
         Graphics g = image.getGraphics();
@@ -202,8 +202,8 @@ public class City {
             {
                 switch (peoplemap[i][j]){
                     case '1':
-                        g.setColor(Color.BLACK);
-                        g.fillRect(j*cell,i*cell,cell,cell);
+//                        g.setColor(Color.BLACK);
+//                        g.fillRect(j*cell,i*cell,cell,cell);
                         break;
                     case 'r':
                         g.setColor(Color.RED);
